@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "long": "www.google.com.tw",
+      "short": "w57zA",
+    },
+        {
+      "long": "www.yahoo.com.tw",
+      "short": "78xK9",
+    },
+	    {
+      "long": "www.msn.com.tw",
+      "short": "Ji9Ce",
+    },
+	    {
+      "long": "www.github.com",
+      "short": "gL5qb",
+    },
+	    {
+      "long": "www.www.mongodb.com",
+      "short": "Vn1D3",
+    }
+  ]
+}
