@@ -1,0 +1,26 @@
+<ul class="url-group mt-5">
+  {{#each urls}}
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col-auto me-auto">
+        <h4 style="display: inline; vertical-align: middle;">
+          {{ this.original_url }}
+        </h4>
+      </div>
+      <div class="col-auto me-auto">
+        <h4 style="display: inline; vertical-align: middle;">
+          {{ this.shorted_url }}
+        </h4>
+      </div>
+      <div class="col-auto">
+        <a class="btn btn-success" href="./urls/{{ this._id }}/edit">edit</a> <!-- edit 入口 -->
+
+        <!-- delete -->
+        <form action="/urls/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+          <button class="btn btn-danger" type="submit">delete</button>
+        </form>
+      </div>
+    </div>
+  </li>
+  {{/each}}
+</ul>

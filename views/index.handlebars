@@ -1,1 +1,50 @@
-<h2>這是一個短網址產生器</h2>
+<img class="rounded mx-auto d-block rounded mt-4"
+  src="https://assets-lighthouse.alphacamp.co/uploads/image/file/16716/ExportedContentImage_00.png"
+  style="width:100px; height: 100px; margin-bottom: 20px;" />
+
+{{!-- 介面切換 --}}
+{{#if shorted_url}} {{!-- 短網址介面 --}}
+<div class="d-flex justify-content-center bg-light">
+  <a href="{{origin}}/{{shorted_url}}">
+    <font id="copy" size="5" color="blue" face="Arial">{{origin}}/{{shorted_url}}</font>
+  </a>
+</div>
+
+<div class="d-flex justify-content-center bg-light mt-3">
+  <button type="button" onclick="copyEvent('copy')">Copy</button>
+  <script>
+    function copyEvent(id) {
+      const str = document.getElementById(id);
+      window.getSelection().selectAllChildren(str);
+      document.execCommand("Copy")
+    }
+  </script>
+  {{!-- //alphacamp的寫法
+  <script>
+    function copy() {
+      const URL = document.getElementById("generatedURL")
+      navigator.clipboard.writeText(URL.innerText)
+        .then(() => alert('copied'))
+        .catch(error => console.log(error))
+    }
+  </script> --}}
+</div>
+
+{{else}} {{!-- 網址輸入介面 --}}
+{{!-- 網址輸入欄 --}}
+<div class="d-flex justify-content-center bg-light">
+  <form action="/" method="post">
+    {{!-- type選擇url，會強制使用者輸入的網址帶有http://，之後再能往下進行轉址--}}
+    <input type="url" name="originalURL" placeholder="http://..." aria-label="url..."
+      aria-describedby="transfer-button">
+    <div class="mt-3" align="center"> {{!-- 按扭置中 --}}
+      <button class="btn btn-success" type="submit" id="transfer-button"> 轉換 </button>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+{{/if}}

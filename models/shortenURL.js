@@ -6,14 +6,14 @@ const Schema = mongoose.Schema
 
 // Schema 大寫表示你可以用 new Schema() 的方式來建構一個新的 Schema
 const shortenUrlSchema = new Schema({
-  long: {
+  original_url: {
     type: String,
     required: true
   },
-  short: {
-    type: Boolean,
-    default: false
+  shorted_url: {
+    type: String,
+    required: true
   }
 })
 
-module.exports = mongoose.model('shortenURL', shortenUrlSchema)
+module.exports = mongoose.model('URL', shortenUrlSchema)
