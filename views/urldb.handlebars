@@ -2,24 +2,35 @@
   {{#each urls}}
   <li class="list-group-item">
     <div class="row">
-      <div class="col-auto me-auto">
-        <h4 style="display: inline; vertical-align: middle;">
-          {{ this.original_url }}
-        </h4>
-      </div>
-      <div class="col-auto me-auto">
-        <h4 style="display: inline; vertical-align: middle;">
-          {{ this.shorted_url }}
-        </h4>
-      </div>
-      <div class="col-auto">
-        <a class="btn btn-success" href="./urls/{{ this._id }}/edit">edit</a> <!-- edit 入口 -->
+      <form action="/urls/{{ this._id }}/edit" method="POST">
+        {{!-- 原始網址欄 --}}
+        <div class="col-auto me-auto">
+          <h4 style="display: inline; vertical-align: middle;">
+            <input type="url" class="form-control" id="name" placeholder="餐廳名稱" name="name"
+              value="{{ this.original_url }}" required />
+          </h4>
+        </div>
 
-        <!-- delete -->
-        <form action="/urls/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-          <button class="btn btn-danger" type="submit">delete</button>
-        </form>
-      </div>
+        {{!-- 短網址欄 --}}
+        <div class="col-auto me-auto">
+          <h4 style="display: inline; vertical-align: middle;">
+            <input type="text" class="form-control" id="name" placeholder="餐廳名稱" name="name"
+              value="{{ this.shorted_url }}" required />
+          </h4>
+        </div>
+
+        <!-- 修改按鈕 入口 -->
+        <div class="col-auto">
+          <a class="btn btn-success" href="./urls/{{ this._id }}/edit">edit</a>
+        </div>
+      </form>
+
+      <!-- 刪除按鈕 -->
+      <form action="/urls/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+        <button class="btn btn-danger" type="submit">delete</button>
+      </form>
+
+
     </div>
   </li>
   {{/each}}
