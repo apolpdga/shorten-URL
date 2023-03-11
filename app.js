@@ -74,21 +74,84 @@ app.get('/:short', (req, res) => {
 
 // 將取得的網址和新產生的短網址，一併存入資料庫，並導回首頁
 app.post('/', (req, res) => {
-  //如果使用者輸入的網址已存在資料庫中，則回傳相對應的短網址
 
-  //如果產生的短網址已在資料庫中，則重新產生
-  const shortedURL = getShortURL()  //亂數產生短網址
+  //先找看看輸入的網址是否已存在
+  URL.findOne({ original_url: req.body.originalURL })
+    .then(data => {
 
-  //資料寫入資料庫，回導回首頁(呈現短網址的介面)
-  URL.create({ original_url: req.body.originalURL, shorted_url: shortedURL })     // 資料新增至資料庫
-    .then((data) => {
-      res.render('index', {
-        origin: req.headers.origin,    // 網站首頁網址
-        shorted_url: data.shorted_url, // 短網址
-      })
+      // 若傳入的網址已存在，則找出資料傳回首頁
+      if (data) {
+        res.render('index', {
+          origin: req.headers.origin,    // 網站首頁網址
+          shorted_url: data.shorted_url // 短網址
+        })
+      }
+      // 若傳入的網址不存在，則創造資料傳回首頁
+      else {
+        let shortedURL = getShortURL()
+        URL.findOne({ shorted_url: shortedURL })
+          .then(data => {
+            //若短網址重複，則重新產生
+            if (data) shortedURL = getShortURL()
+
+            URL.create({ original_url: req.body.originalURL, shorted_url: shortedURL })
+              .then(data => {
+                res.render('index', {
+                  origin: req.headers.origin,    // 網站首頁網址
+                  shorted_url: data.shorted_url // 短網址
+                })
+              })
+          })
+      }
     })
-    .catch(error => console.log(error))
-  // 使用then時需要返回一個結果，而當使用 arrow function, 例如() => x 其實就是() => { return x; }，故會返回結果
+    .catch(error => console.error(error))
+
+  /*
+  // 若傳入空字串，則轉址回首頁
+  if (!req.body.originalURL) return res.redirect("/")
+
+  //亂數產生短網址
+  let shortedURL = "ab123"   //先故意設定一個重複的短網址，看看接下來可否判斷出短網址有重複
+
+  // 尋找傳入的網址，若資料庫中已存在，則直接從資料庫回傳，否則就存入一個新資料再回傳
+  URL.findOne({ original_url: req.body.originalURL })
+    .then(data => {
+
+      // 若傳入的網址已存在，則找出資料傳回首頁
+      if (data) {
+        res.render('index', {
+          origin: req.headers.origin,    // 網站首頁網址
+          shorted_url: data.shorted_url  // 短網址
+        })
+      }
+
+      // 若傳入的網址不存在，則創造資料傳回首頁
+      else {
+        URL.findOne({ shorted_url: shortedURL })
+          .then(data => {
+            console.log("進入點1")
+            console.log(data)
+            shortedURL = getShortURL()
+          })
+        // const shortedURL = getShortURL()  //亂數產生短網址
+        console.log("進入2")
+        console.log(shortedURL)
+        URL.create({ original_url: req.body.originalURL, shorted_url: shortedURL })
+          .then(data => {
+            console.log("進入3")
+            console.log(shortedURL)
+            console.log(data)
+            res.render('index', {
+              origin: req.headers.origin,    // 網站首頁網址
+              shorted_url: data.shorted_url // 短網址
+            })
+            console.log(shortedURL)
+          })
+      }
+    })
+    .catch(error => console.error(error))
+
+*/
 })
 
 /* update */
