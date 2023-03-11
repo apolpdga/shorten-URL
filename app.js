@@ -75,6 +75,9 @@ app.get('/:short', (req, res) => {
 // 將取得的網址和新產生的短網址，一併存入資料庫，並導回首頁
 app.post('/', (req, res) => {
 
+  // 若傳入空字串，則轉址回首頁
+  if (!req.body.originalURL) return res.redirect("/")
+
   //先找看看輸入的網址是否已存在
   URL.findOne({ original_url: req.body.originalURL })
     .then(data => {
@@ -107,9 +110,6 @@ app.post('/', (req, res) => {
     .catch(error => console.error(error))
 
   /*
-  // 若傳入空字串，則轉址回首頁
-  if (!req.body.originalURL) return res.redirect("/")
-
   //亂數產生短網址
   let shortedURL = "ab123"   //先故意設定一個重複的短網址，看看接下來可否判斷出短網址有重複
 
