@@ -108,51 +108,55 @@ app.post('/', (req, res) => {
       }
     })
     .catch(error => console.error(error))
-
-  /*
-  //亂數產生短網址
-  let shortedURL = "ab123"   //先故意設定一個重複的短網址，看看接下來可否判斷出短網址有重複
-
-  // 尋找傳入的網址，若資料庫中已存在，則直接從資料庫回傳，否則就存入一個新資料再回傳
-  URL.findOne({ original_url: req.body.originalURL })
-    .then(data => {
-
-      // 若傳入的網址已存在，則找出資料傳回首頁
-      if (data) {
-        res.render('index', {
-          origin: req.headers.origin,    // 網站首頁網址
-          shorted_url: data.shorted_url  // 短網址
-        })
-      }
-
-      // 若傳入的網址不存在，則創造資料傳回首頁
-      else {
-        URL.findOne({ shorted_url: shortedURL })
-          .then(data => {
-            console.log("進入點1")
-            console.log(data)
-            shortedURL = getShortURL()
-          })
-        // const shortedURL = getShortURL()  //亂數產生短網址
-        console.log("進入2")
-        console.log(shortedURL)
-        URL.create({ original_url: req.body.originalURL, shorted_url: shortedURL })
-          .then(data => {
-            console.log("進入3")
-            console.log(shortedURL)
-            console.log(data)
-            res.render('index', {
-              origin: req.headers.origin,    // 網站首頁網址
-              shorted_url: data.shorted_url // 短網址
-            })
-            console.log(shortedURL)
-          })
-      }
-    })
-    .catch(error => console.error(error))
-
-*/
 })
+
+// app.post('/', (req, res) => {
+
+//   // 若傳入空字串，則轉址回首頁
+//   if (!req.body.originalURL) return res.redirect("/")
+
+//   //亂數產生短網址
+//   let shortedURL = "ab123"   //先故意設定一個重複的短網址，看看接下來可否判斷出短網址有重複
+
+//   // 尋找傳入的網址，若資料庫中已存在，則直接從資料庫回傳，否則就存入一個新資料再回傳
+//   URL.findOne({ original_url: req.body.originalURL })
+//     .then(data => {
+
+//       // 若傳入的網址已存在，則找出資料傳回首頁
+//       if (data) {
+//         res.render('index', {
+//           origin: req.headers.origin,    // 網站首頁網址
+//           shorted_url: data.shorted_url  // 短網址
+//         })
+//       }
+
+//       // 若傳入的網址不存在，則創造資料傳回首頁
+//       else {
+//         URL.findOne({ shorted_url: shortedURL })
+//           .then(data => {
+//             console.log("進入點1")
+//             console.log(data)
+//             shortedURL = getShortURL()
+//           })
+//         // const shortedURL = getShortURL()  //亂數產生短網址
+//         console.log("進入點2")
+//         console.log(shortedURL)
+
+//         URL.create({ original_url: req.body.originalURL, shorted_url: shortedURL })
+//           .then(data => {
+//             console.log("進入點3")
+//             console.log(shortedURL)
+
+//             res.render('index', {
+//               origin: req.headers.origin,    // 網站首頁網址
+//               shorted_url: data.shorted_url // 短網址
+//             })
+//             console.log(shortedURL)
+//           })
+//       }
+//     })
+//     .catch(error => console.error(error))
+// })
 
 /* update */
 
