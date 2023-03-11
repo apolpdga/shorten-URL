@@ -3,9 +3,9 @@
 const express = require('express')
 const app = express()
 // start and listen on the Express server
-const port = 3000
+const PORT = process.env.PORT || 3000
 app.listen(port, () => {
-  console.log(`Express is listening on http://localhost:${port}`)
+  console.log(`Express is listening on http://localhost:${PORT}`)
 })
 
 //環境變數設定
